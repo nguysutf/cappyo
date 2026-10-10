@@ -9,7 +9,7 @@ import tseslint from 'typescript-eslint'
 export default defineConfig([
   js.configs.recommended,
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'], 
+    files: ['**/*.{js,mjs,cjs,ts,tsx,mts,cts}'], 
     languageOptions: { globals: globals.browser },
     ignores: ['**/build/**', '**/node_modules/**', '**/dist/**'],
   },
