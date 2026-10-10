@@ -1,3 +1,5 @@
+@use '@/styles/variables.scss' as *;
+
 @mixin button-3d($color, $shadow-color) {
   position: relative;
   background-color: $color;

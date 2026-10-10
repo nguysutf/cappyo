@@ -1,0 +1,152 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  width: 100%;
+}
+
+.questionSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background-color: $color-primary-light;
+  color: $color-primary;
+  border-radius: $radius-round;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-text;
+  line-height: 1.4;
+
+  @media (min-width: $breakpoint-tablet) {
+    font-size: 1.5rem;
+  }
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-3;
+
+  @media (min-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-4;
+  }
+}
+
+.optionButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background-color: $color-surface;
+  border: 2px solid $color-border;
+  border-bottom: 4px solid $color-border-dark;
+  border-radius: $radius-lg;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary-hover;
+    background-color: $color-surface-hover;
+    transform: translateY(-2px);
+    border-bottom-width: 6px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 3px;
+  }
+
+  &.selected {
+    background-color: $color-primary-light;
+    border-color: $color-primary;
+    border-bottom-color: darken($color-primary, 15%);
+  }
+
+  &.correct {
+    background-color: $color-success-light;
+    border-color: $color-success;
+    border-bottom-color: darken($color-success, 15%);
+  }
+
+  &.incorrect {
+    background-color: $color-danger-light;
+    border-color: $color-danger;
+    border-bottom-color: darken($color-danger, 15%);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.keyBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-sm;
+  background-color: $color-bg;
+  border: 1px solid $color-border;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: $color-text-muted;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+
+  .selected & {
+    background-color: $color-primary;
+    color: #ffffff;
+    border-color: $color-primary;
+  }
+
+  .correct & {
+    background-color: $color-success;
+    color: #ffffff;
+    border-color: $color-success;
+  }
+
+  .incorrect & {
+    background-color: $color-danger;
+    color: #ffffff;
+    border-color: $color-danger;
+  }
+}
+
+.optionLabel {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: $color-text;
+  flex: 1;
+}
+
+.statusIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.correctIcon {
+    color: $color-success-hover;
+  }
+
+  &.incorrectIcon {
+    color: $color-danger-hover;
+  }
+}

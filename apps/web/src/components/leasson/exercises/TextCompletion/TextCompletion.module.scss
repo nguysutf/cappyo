@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  width: 100%;
+}
+
+.questionSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background-color: $color-primary-light;
+  color: $color-primary;
+  border-radius: $radius-round;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-text;
+  line-height: 1.4;
+
+  @media (min-width: $breakpoint-tablet) {
+    font-size: 1.5rem;
+  }
+}
+
+.contentCard {
+  background-color: $color-surface;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  box-shadow: $shadow-sm;
+}
+
+.interactiveSentence {
+  font-size: 1.25rem;
+  line-height: 2.2;
+  color: $color-text;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.blankInput {
+  display: inline-flex;
+  min-width: 140px;
+  max-width: 220px;
+  padding: 4px $spacing-3;
+  border: 2px dashed $color-primary;
+  border-radius: $radius-sm;
+  background-color: $color-primary-light;
+  font-family: $font-mono;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $color-primary;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-style: solid;
+    border-color: $color-primary-hover;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
+  }
+
+  &.correct {
+    border-color: $color-success;
+    border-style: solid;
+    background-color: $color-success-light;
+    color: $color-success-hover;
+  }
+
+  &.incorrect {
+    border-color: $color-danger;
+    border-style: solid;
+    background-color: $color-danger-light;
+    color: $color-danger-hover;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.helpTip {
+  font-size: 0.875rem;
+  color: $color-text-muted;
+}

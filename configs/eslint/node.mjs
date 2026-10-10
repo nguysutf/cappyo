@@ -39,6 +39,7 @@ export default defineConfig([
             ['/^@/utils/'],
             ['/@//'],
             ['/@types/', '/typing*/'],
+            ['/^@/styles/'],
             ['parent', 'sibling', 'index'],
           ],
           alphabetize: {

@@ -1,0 +1,66 @@
+.progressContainer {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-round;
+  color: $color-text-muted;
+  transition: all 0.15s ease;
+  background: transparent;
+
+  &:hover {
+    background-color: $color-surface-hover;
+    color: $color-text;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.track {
+  flex: 1;
+  height: 14px;
+  background-color: $color-border;
+  border-radius: $radius-round;
+  overflow: hidden;
+  position: relative;
+}
+
+.fill {
+  height: 100%;
+  background-color: $color-success;
+  border-radius: $radius-round;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+
+  // Visual glossy highlight bar in gamified style
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: $radius-round;
+  }
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: $color-text-muted;
+  white-space: nowrap;
+  min-width: 45px;
+  text-align: right;
+}

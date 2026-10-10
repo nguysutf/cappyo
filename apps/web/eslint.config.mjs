@@ -1,3 +1,8 @@
 import config from '../../configs/eslint/node.mjs'
 
-export default config
+export default [
+  {
+    ignores: ['dist/**', 'node_modules/**'],
+  },
+  ...config,
+]

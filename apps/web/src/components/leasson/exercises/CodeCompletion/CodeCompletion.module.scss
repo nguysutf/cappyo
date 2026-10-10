@@ -1,0 +1,135 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  width: 100%;
+}
+
+.questionSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background-color: $color-primary-light;
+  color: $color-primary;
+  border-radius: $radius-round;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-text;
+  line-height: 1.4;
+
+  @media (min-width: $breakpoint-tablet) {
+    font-size: 1.5rem;
+  }
+}
+
+.codeCard {
+  background-color: #1e1e2e;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 1px solid #313244;
+}
+
+.codeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-2 $spacing-4;
+  background-color: #181825;
+  border-bottom: 1px solid #313244;
+}
+
+.windowControls {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-round;
+
+  &.red { background-color: #f38ba8; }
+  &.yellow { background-color: #f9e2af; }
+  &.green { background-color: #a6e3a1; }
+}
+
+.langLabel {
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #a6adc8;
+  letter-spacing: 0.05em;
+}
+
+.codeBody {
+  padding: $spacing-5;
+  font-family: $font-mono;
+  font-size: 1.125rem;
+  color: #cdd6f4;
+  line-height: 1.8;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+  overflow-x: auto;
+}
+
+.codeKeyword {
+  color: #cba6f7; // Catppuccin mauve for SQL keywords
+  font-weight: 700;
+}
+
+.codeInput {
+  display: inline-flex;
+  min-width: 120px;
+  max-width: 200px;
+  padding: 4px $spacing-3;
+  border: 2px dashed #89b4fa;
+  border-radius: $radius-sm;
+  background-color: rgba(137, 180, 250, 0.15);
+  font-family: $font-mono;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #89b4fa;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-style: solid;
+    border-color: #89b4fa;
+    background-color: rgba(137, 180, 250, 0.25);
+    box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.3);
+  }
+
+  &.correct {
+    border-color: $color-success;
+    border-style: solid;
+    background-color: rgba($color-success, 0.2);
+    color: #a6e3a1;
+  }
+
+  &.incorrect {
+    border-color: $color-danger;
+    border-style: solid;
+    background-color: rgba($color-danger, 0.2);
+    color: #f38ba8;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
