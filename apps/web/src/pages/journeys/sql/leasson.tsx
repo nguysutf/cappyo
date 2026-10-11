@@ -8,12 +8,14 @@ import { LessonCompletion } from '@/components/leasson/LessonCompletion'
 import { ProgressBar } from '@/components/leasson/ProgressBar'
 import { useLesson } from '@/hooks/useLesson'
 import { lessonService } from '@/services/lessonService'
+import type { ExecutionResult } from '@/types/database'
 import type { LessonSession } from '@/types/lesson'
 
 export function SqlLessonPage() {
   const navigate = useNavigate()
   const [session, setSession] = useState<LessonSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [lastExecution, setLastExecution] = useState<ExecutionResult | undefined>(undefined)
 
   useEffect(() => {
     let isMounted = true
@@ -56,23 +58,34 @@ export function SqlLessonPage() {
     navigate('/')
   }, [navigate])
 
+  const handleTriggerCheck = useCallback(() => {
+    handleCheckAnswer(lastExecution)
+  }, [handleCheckAnswer, lastExecution])
+
   // Global keyboard shortcuts: Enter confirms or proceeds to next question
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Avoid intercepting Enter inside Monaco or input elements
+      const target = e.target as HTMLElement
+
+      if(target.closest('.monaco-editor') || ['INPUT', 'TEXTAREA'].includes(target.tagName)) {
+        return
+      }
+
       if(e.key === 'Enter') {
         if(feedback !== null) {
           e.preventDefault()
           handleNext()
         } else if(userAnswer.trim().length > 0) {
           e.preventDefault()
-          handleCheckAnswer()
+          handleTriggerCheck()
         }
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [feedback, userAnswer, handleNext, handleCheckAnswer])
+  }, [feedback, userAnswer, handleNext, handleTriggerCheck])
 
   if(isLoading) {
     return (
@@ -129,7 +142,7 @@ export function SqlLessonPage() {
         <FeedbackFooter
           feedback={feedback}
           canCheck={userAnswer.trim().length > 0}
-          onCheck={handleCheckAnswer}
+          onCheck={handleTriggerCheck}
           onNext={handleNext}
           isLastExercise={isLastExercise}
         />
@@ -141,6 +154,7 @@ export function SqlLessonPage() {
         userAnswer={userAnswer}
         onAnswerChange={handleSelectAnswer}
         feedback={feedback}
+        onExecutionComplete={setLastExecution}
       />
     </LeassonLayout>
   )

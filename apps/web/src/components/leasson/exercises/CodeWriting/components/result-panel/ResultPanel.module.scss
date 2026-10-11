@@ -1,0 +1,108 @@
+.resultContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding: $spacing-3;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-7 $spacing-4;
+  text-align: center;
+  color: $color-text-muted;
+  gap: $spacing-2;
+  background-color: $color-surface;
+  border: 1px dashed $color-border;
+  border-radius: $radius-md;
+
+  p {
+    font-size: 0.9375rem;
+  }
+}
+
+.errorBox {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background-color: $color-danger-light;
+  border: 1px solid $color-danger;
+  border-radius: $radius-md;
+  color: $color-danger-hover;
+
+  h4 {
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin-top: 2px;
+  }
+}
+
+.metaBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-2 $spacing-3;
+  background-color: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $color-text-muted;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background-color: $color-surface;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+
+  th {
+    background-color: $color-bg;
+    padding: $spacing-2 $spacing-4;
+    font-family: $font-mono;
+    font-weight: 700;
+    color: $color-text;
+    border-bottom: 2px solid $color-border;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: $spacing-2 $spacing-4;
+    border-bottom: 1px solid $color-border;
+    color: $color-text;
+    white-space: nowrap;
+
+    &.nullValue {
+      color: $color-text-muted;
+      font-style: italic;
+    }
+
+    &.booleanValue {
+      font-family: $font-mono;
+      font-weight: 600;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background-color: $color-surface-hover;
+  }
+}

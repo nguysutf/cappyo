@@ -1,5 +1,7 @@
 import type { LessonSession } from '@/types/lesson'
 
+import { mockSqlSchema } from './databaseMock'
+
 export const mockSqlLessonSession: LessonSession = {
   id: 'sql-intro-01',
   journeyId: 'sql',
@@ -65,6 +67,30 @@ export const mockSqlLessonSession: LessonSession = {
       acceptedAnswers: ['*'],
       placeholder: 'coringa',
       explanation: 'O asterisco (*) é o caractere curinga que representa todas as colunas de uma tabela.',
+    },
+    {
+      id: 'ex-06',
+      type: 'code-writing',
+      language: 'sql',
+      title: 'Desafio: Usuários Ativos',
+      question: 'Escreva uma consulta SQL que retorne o nome e o e-mail de todos os usuários ativos.',
+      instructions: [
+        'Utilize a tabela <code>users</code>.',
+        'Retorne apenas as colunas <code>name</code> e <code>email</code>.',
+        'Considere apenas os usuários onde a coluna <code>active</code> é verdadeira (<code>active = true</code>).',
+      ],
+      initialCode: 'SELECT \n  \nFROM users\nWHERE ',
+      databaseSchema: mockSqlSchema,
+      solutionQuery: 'SELECT name, email FROM users WHERE active = true',
+      expectedResult: {
+        columns: ['name', 'email'],
+        rows: [
+          { name: 'João Silva', email: 'joao@example.com' },
+          { name: 'Maria Souza', email: 'maria@example.com' },
+          { name: 'Ana Costa', email: 'ana@example.com' },
+        ],
+      },
+      explanation: 'Parabéns! Sua consulta retornou com precisão os nomes e e-mails de todos os usuários ativos no banco de dados.',
     },
   ],
 }

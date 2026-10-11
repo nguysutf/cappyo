@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 
 import { validateExercise } from '@/services/exerciseValidator'
+import type { ExecutionResult } from '@/types/database'
 import type {
   ExerciseValidationResult,
   LessonExercise,
@@ -42,10 +43,10 @@ export function useLesson(session: LessonSession | null) {
     setUserAnswer(answer)
   }, [])
 
-  const handleCheckAnswer = useCallback(() => {
+  const handleCheckAnswer = useCallback((executionResult?: ExecutionResult) => {
     if(!currentExercise || !userAnswer.trim()) return
 
-    const validationResult = validateExercise(currentExercise, userAnswer)
+    const validationResult = validateExercise(currentExercise, userAnswer, executionResult)
 
     setFeedback(validationResult)
 

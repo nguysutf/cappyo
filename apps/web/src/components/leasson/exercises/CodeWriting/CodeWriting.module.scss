@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  width: 100%;
+}
+
+.workspaceGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-4;
+
+  @media (min-width: $breakpoint-desktop) {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
+.tabsWrapper {
+  width: 100%;
+}
+
+.tabContentWrapper {
+  min-height: 320px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.editorTabWrapper {
+  padding: 0;
+  overflow: hidden;
+}

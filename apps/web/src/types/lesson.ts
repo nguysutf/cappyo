@@ -43,12 +43,19 @@ export interface CodeCompletionExercise extends BaseExercise {
   placeholder?: string;
 }
 
+import type { DatabaseSchema } from './database'
+
 export interface CodeWritingExercise extends BaseExercise {
-  type: 'code-writing';
-  language: 'sql';
-  initialCode?: string;
-  expectedOutput?: string;
-  solutionQuery?: string;
+  type: 'code-writing'
+  language: 'sql'
+  instructions?: string[]
+  initialCode?: string
+  databaseSchema: DatabaseSchema
+  solutionQuery?: string
+  expectedResult?: {
+    columns?: string[]
+    rows?: Record<string, unknown>[]
+  }
 }
 
 export type LessonExercise

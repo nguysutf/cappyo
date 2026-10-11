@@ -1,6 +1,8 @@
+import type { ExecutionResult } from '@/types/database'
 import type { ExerciseValidationResult, LessonExercise } from '@/types/lesson'
 
 import { CodeCompletion } from './CodeCompletion'
+import { CodeWriting } from './CodeWriting'
 import { MultipleChoice } from './MultipleChoice'
 import { TextCompletion } from './TextCompletion'
 
@@ -9,6 +11,7 @@ interface ExerciseRendererProps {
   userAnswer: string
   onAnswerChange: (answer: string) => void
   feedback: ExerciseValidationResult | null
+  onExecutionComplete?: (result: ExecutionResult) => void
 }
 
 export function ExerciseRenderer({
@@ -16,6 +19,7 @@ export function ExerciseRenderer({
   userAnswer,
   onAnswerChange,
   feedback,
+  onExecutionComplete,
 }: ExerciseRendererProps) {
   const isAnswered = feedback !== null
   const isCorrect = feedback?.isCorrect
@@ -56,10 +60,13 @@ export function ExerciseRenderer({
 
     case 'code-writing':
       return (
-        <div>
-          <h2>{exercise.question}</h2>
-          <p>Exercício de escrita de código SQL em breve.</p>
-        </div>
+        <CodeWriting
+          exercise={exercise}
+          userAnswer={userAnswer}
+          onAnswerChange={onAnswerChange}
+          isAnswered={isAnswered}
+          onExecutionComplete={onExecutionComplete}
+        />
       )
 
     default: {
