@@ -1,0 +1,5 @@
+// Contorno de foco visível para quem navega pelo teclado
+:focus-visible {
+  outline: 3px solid $color-primary;
+  outline-offset: 2px;
+}
