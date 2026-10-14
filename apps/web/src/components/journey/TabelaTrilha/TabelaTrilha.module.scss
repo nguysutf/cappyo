@@ -1,0 +1,22 @@
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: $color-surface;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+
+  caption {
+    text-align: left;
+    font-weight: 800;
+    margin-bottom: $spacing-2;
+  }
+
+  th, td {
+    padding: $spacing-2;
+    border-bottom: 1px solid $color-border;
+    text-align: left;
+  }
+
+  th { color: $color-text-muted; font-size: 0.75rem; }
+}
