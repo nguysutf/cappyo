@@ -1,0 +1,33 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  h1 { font-size: 2rem; font-weight: 800; }
+  h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: $spacing-3; }
+  code { font-family: $font-mono; }
+}
+
+.cores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: $spacing-3;
+  font-size: 0.85rem;
+
+  p { color: $color-text-muted; }
+}
+
+.amostra {
+  height: 56px;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-1;
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-3;
+}

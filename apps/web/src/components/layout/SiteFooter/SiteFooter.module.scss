@@ -1,0 +1,21 @@
+.footer {
+  border-top: 2px solid $color-border;
+  background: $color-surface;
+  padding: $spacing-5 $spacing-4;
+  text-align: center;
+  font-size: 0.85rem;
+  color: $color-text-muted;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-4;
+  margin-top: $spacing-2;
+
+  a {
+    color: $color-primary;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,31 @@
+.button {
+  padding: $spacing-2 $spacing-5;
+  min-height: 46px;
+  border: 2px solid transparent;
+  border-bottom-width: 5px;
+  border-radius: $radius-md;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+
+  &:active:not(:disabled) { transform: translateY(3px); border-bottom-width: 2px; }
+  &:focus-visible { outline: 3px solid $color-primary; outline-offset: 3px; }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: $color-border;
+    border-color: $color-border-dark;
+    color: $color-text-muted;
+  }
+}
+
+.primary { background: $color-primary; border-color: $color-primary-hover; }
+.secondary { background: $color-secondary; border-color: $color-secondary-hover; }
+.success { background: $color-success; border-color: $color-success-hover; }
+.danger { background: $color-danger; border-color: $color-danger-hover; }
+
+.outline {
+  background: $color-surface;
+  border-color: $color-border;
+  color: $color-primary;
+}

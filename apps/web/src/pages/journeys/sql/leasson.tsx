@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { ExerciseRenderer } from '@/components/leasson/exercises/ExerciseRenderer'
 import { FeedbackFooter } from '@/components/leasson/FeedbackFooter'
@@ -8,11 +8,13 @@ import { LessonCompletion } from '@/components/leasson/LessonCompletion'
 import { ProgressBar } from '@/components/leasson/ProgressBar'
 import { useLesson } from '@/hooks/useLesson'
 import { lessonService } from '@/services/lessonService'
+import { marcarConcluida } from '@/services/progress'
 import type { ExecutionResult } from '@/types/database'
 import type { LessonSession } from '@/types/lesson'
 
 export function SqlLessonPage() {
   const navigate = useNavigate()
+  const { lessonId = 'sql-intro-01' } = useParams()
   const [session, setSession] = useState<LessonSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [lastExecution, setLastExecution] = useState<ExecutionResult | undefined>(undefined)
@@ -21,7 +23,7 @@ export function SqlLessonPage() {
     let isMounted = true
 
     lessonService
-      .getLessonSession('sql')
+      .getLessonSession('sql', lessonId)
       .then((data) => {
         if(isMounted) {
           setSession(data)
@@ -36,7 +38,7 @@ export function SqlLessonPage() {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [lessonId])
 
   const {
     currentIndex,
@@ -55,8 +57,12 @@ export function SqlLessonPage() {
   } = useLesson(session)
 
   const handleExit = useCallback(() => {
-    navigate('/')
+    navigate('/journeys/sql')
   }, [navigate])
+  
+  useEffect(() => {
+    if(isCompleted) marcarConcluida(lessonId)
+  }, [isCompleted, lessonId])
 
   const handleTriggerCheck = useCallback(() => {
     handleCheckAnswer(lastExecution)
