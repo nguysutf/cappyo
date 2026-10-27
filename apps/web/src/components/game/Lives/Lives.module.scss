@@ -1,0 +1,8 @@
+.lives {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  color: $color-danger;
+  font-weight: 800;
+  font-size: 1.1rem;
+}

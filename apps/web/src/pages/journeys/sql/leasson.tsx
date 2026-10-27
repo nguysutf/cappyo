@@ -1,12 +1,15 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { Lives } from '@/components/game/Lives'
 import { ExerciseRenderer } from '@/components/leasson/exercises/ExerciseRenderer'
 import { FeedbackFooter } from '@/components/leasson/FeedbackFooter'
 import { LeassonLayout } from '@/components/leasson/layout'
 import { LessonCompletion } from '@/components/leasson/LessonCompletion'
 import { ProgressBar } from '@/components/leasson/ProgressBar'
+import { Button } from '@/components/ui/Button'
 import { useLesson } from '@/hooks/useLesson'
+import { ganharXp, VIDAS_POR_LICAO, XP_POR_ACERTO } from '@/services/game'
 import { lessonService } from '@/services/lessonService'
 import { marcarConcluida } from '@/services/progress'
 import type { ExecutionResult } from '@/types/database'
@@ -17,6 +20,7 @@ export function SqlLessonPage() {
   const { lessonId = 'sql-intro-01' } = useParams()
   const [session, setSession] = useState<LessonSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [vidas, setVidas] = useState(VIDAS_POR_LICAO)
   const [lastExecution, setLastExecution] = useState<ExecutionResult | undefined>(undefined)
 
   useEffect(() => {
@@ -59,10 +63,21 @@ export function SqlLessonPage() {
   const handleExit = useCallback(() => {
     navigate('/journeys/sql')
   }, [navigate])
-  
+
   useEffect(() => {
     if(isCompleted) marcarConcluida(lessonId)
   }, [isCompleted, lessonId])
+
+  useEffect(() => {
+    if(!feedback) return
+    if(feedback.isCorrect) ganharXp(XP_POR_ACERTO)
+    else setVidas((v) => v - 1)
+  }, [feedback])
+
+  const recomecar = () => {
+    setVidas(VIDAS_POR_LICAO)
+    handleRestart()
+  }
 
   const handleTriggerCheck = useCallback(() => {
     handleCheckAnswer(lastExecution)
@@ -117,9 +132,22 @@ export function SqlLessonPage() {
       >
         <LessonCompletion
           summary={summary}
-          onRestart={handleRestart}
+          onRestart={recomecar}
           onExit={handleExit}
         />
+      </LeassonLayout>
+    )
+  }
+
+  if(vidas <= 0 && !feedback) {
+    return (
+      <LeassonLayout>
+        <div role="alert" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          <h1>Suas vidas acabaram!</h1>
+          <p>Revise o conteúdo e tente de novo.</p>
+          <Button onClick={recomecar}>Tentar de novo</Button>
+          <Button variant="outline" onClick={handleExit}>Voltar à trilha</Button>
+        </div>
       </LeassonLayout>
     )
   }
@@ -137,12 +165,17 @@ export function SqlLessonPage() {
   return (
     <LeassonLayout
       header={
-        <ProgressBar
-          current={currentIndex + 1}
-          total={totalExercises}
-          progressPercentage={progressPercentage}
-          onClose={handleExit}
-        />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ flex: 1 }}>
+            <ProgressBar
+              current={currentIndex + 1}
+              total={totalExercises}
+              progressPercentage={progressPercentage}
+              onClose={handleExit}
+            />
+          </div>
+          <Lives vidas={vidas} />
+        </div>
       }
       footer={
         <FeedbackFooter
