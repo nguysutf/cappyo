@@ -54,10 +54,10 @@ export function ResultPanel({ result, isExecuting }: ResultPanelProps) {
         <div className={styles.metaBar}>
           <span>
             <CheckCircle2 size={14} style={{ display: 'inline', marginRight: 4, color: '#10b981' }} />
-            Consulta executada com sucesso
+            {result.message ?? 'Consulta executada com sucesso'}
           </span>
           {result.executionTime !== undefined && (
-            <span>Tempo demonstrativo: {result.executionTime} ms</span>
+            <span>Tempo de execução: {result.executionTime} ms</span>
           )}
         </div>
         <div className={styles.emptyState}>
@@ -71,10 +71,10 @@ export function ResultPanel({ result, isExecuting }: ResultPanelProps) {
     <div className={styles.resultContainer}>
       <div className={styles.metaBar}>
         <span>
-          {rows.length} {rows.length === 1 ? 'linha retornada' : 'linhas retornadas'}
+          {result.message ?? `${rows.length} ${rows.length === 1 ? 'linha retornada' : 'linhas retornadas'}`}
         </span>
         {result.executionTime !== undefined && (
-          <span>Tempo demonstrativo: {result.executionTime} ms</span>
+          <span>Tempo de execução: {result.executionTime} ms</span>
         )}
       </div>
 

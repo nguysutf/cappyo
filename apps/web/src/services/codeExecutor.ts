@@ -2,7 +2,7 @@ import { mockDatabaseData } from '@/mocks/databaseMock'
 import type { DatabaseSchema, ExecutionResult } from '@/types/database'
 
 export interface ICodeExecutor {
-  execute(code: string, schema: DatabaseSchema): Promise<ExecutionResult>
+  execute(code: string, schema: DatabaseSchema, solutionQuery?: string): Promise<ExecutionResult>
 }
 
 export class MockCodeExecutor implements ICodeExecutor {
@@ -153,5 +153,3 @@ export class MockCodeExecutor implements ICodeExecutor {
     }
   }
 }
-
-export const codeExecutor = new MockCodeExecutor()

@@ -2,7 +2,7 @@ import { Code2, Database, Terminal } from 'lucide-react'
 import { useState, useCallback, useMemo } from 'react'
 
 import { Tabs, type TabItem } from '@/components/tabs'
-import { codeExecutor } from '@/services/codeExecutor'
+import { SqliteCodeExecutor } from '@/services/sqliteExecutor'
 import type { ExecutionResult } from '@/types/database'
 import type { CodeWritingExercise } from '@/types/lesson'
 
@@ -11,6 +11,8 @@ import { DatabasePanel } from './components/database-panel'
 import { ExerciseDescription } from './components/exercise-description'
 import { ResultPanel } from './components/result-panel'
 import { SqlEditor } from './components/sql-editor'
+
+const codeExecutor = new SqliteCodeExecutor()
 
 interface CodeWritingProps {
   exercise: CodeWritingExercise
@@ -34,7 +36,7 @@ export function CodeWriting({
   const handleExecute = useCallback(async () => {
     setIsExecuting(true)
     try {
-      const res = await codeExecutor.execute(userAnswer, exercise.databaseSchema)
+      const res = await codeExecutor.execute(userAnswer, exercise.databaseSchema, exercise.solutionQuery)
 
       setExecutionResult(res)
       setActiveTabId('result')
@@ -42,7 +44,7 @@ export function CodeWriting({
     } finally {
       setIsExecuting(false)
     }
-  }, [userAnswer, exercise.databaseSchema, onExecutionComplete])
+  }, [userAnswer, exercise.databaseSchema, exercise.solutionQuery, onExecutionComplete])
 
   const handleInsertText = useCallback(
     (text: string) => {
