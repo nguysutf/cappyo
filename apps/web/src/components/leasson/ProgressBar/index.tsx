@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { Heart, X } from 'lucide-react'
 
 import styles from './ProgressBar.module.scss'
 
@@ -7,6 +7,7 @@ interface ProgressBarProps {
   total: number
   progressPercentage: number
   onClose?: () => void
+  hearts?: number
 }
 
 export function ProgressBar({
@@ -14,6 +15,7 @@ export function ProgressBar({
   total,
   progressPercentage,
   onClose,
+  hearts = 5,
 }: ProgressBarProps) {
   return (
     <div
@@ -46,6 +48,7 @@ export function ProgressBar({
       <span className={styles.label}>
         {current} / {total}
       </span>
+      <span className={styles.hearts} aria-label={`${hearts} corações restantes`}><Heart size={17} fill="currentColor" /> {hearts}</span>
     </div>
   )
 }

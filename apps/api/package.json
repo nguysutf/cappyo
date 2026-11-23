@@ -1,1 +1,9 @@
-{}
+{
+  "name": "@cappyo/api",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "node -e \"process.exit(0)\"",
+    "build": "node -e \"process.exit(0)\""
+  }
+}

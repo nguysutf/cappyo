@@ -2,8 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: $color-surface;
-  border-bottom: 2px solid $color-border;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid $color-border;
+  backdrop-filter: blur(12px);
 }
 
 .inner {
@@ -13,10 +14,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: $spacing-4;
 }
 
 .brand {
   font-size: 1.4rem;
   font-weight: 800;
   color: $color-primary;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
+
+.logoMark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: #fff; background: linear-gradient(145deg, $color-primary, #8b5cf6); box-shadow: 0 3px 0 #4338ca; }
+.nav { display: flex; align-items: center; gap: $spacing-4; color: $color-text-muted; font-size: .85rem; font-weight: 700; }
+.navLink { color: $color-text; text-decoration: none; }
+.stat { display: inline-flex; align-items: center; gap: 5px; color: $color-text-muted; }
+.stat:first-of-type { color: $color-warning-hover; }
+.stat:nth-of-type(2) { color: $color-primary; }
+.avatar { width: 32px; height: 32px; border: 1px solid $color-border-dark; border-radius: 50%; background: $color-primary-light; color: $color-primary-hover; display: grid; place-items: center; cursor: pointer; }
+
+@media (max-width: 650px) { .navLink, .stat { display: none; } }

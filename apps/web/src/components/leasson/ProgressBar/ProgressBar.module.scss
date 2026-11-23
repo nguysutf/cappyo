@@ -64,3 +64,5 @@
   min-width: 45px;
   text-align: right;
 }
+
+.hearts { display: inline-flex; align-items: center; gap: 4px; color: $color-secondary-hover; font-size: .85rem; font-weight: 900; white-space: nowrap; }

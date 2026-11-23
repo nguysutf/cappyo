@@ -57,7 +57,7 @@ export function ResultPanel({ result, isExecuting }: ResultPanelProps) {
             Consulta executada com sucesso
           </span>
           {result.executionTime !== undefined && (
-            <span>Tempo demonstrativo: {result.executionTime} ms</span>
+            <span>Tempo de execução: {result.executionTime} ms</span>
           )}
         </div>
         <div className={styles.emptyState}>
@@ -74,7 +74,7 @@ export function ResultPanel({ result, isExecuting }: ResultPanelProps) {
           {rows.length} {rows.length === 1 ? 'linha retornada' : 'linhas retornadas'}
         </span>
         {result.executionTime !== undefined && (
-          <span>Tempo demonstrativo: {result.executionTime} ms</span>
+          <span>Tempo de execução: {result.executionTime} ms</span>
         )}
       </div>
 

@@ -1,5 +1,8 @@
+import { mockSqlSchema } from '@/mocks/databaseMock'
 import { mockSqlLessonSession } from '@/mocks/sqlLessonMock'
 import type { LessonSession } from '@/types/lesson'
+
+import { supabase } from './supabase'
 
 export interface ILessonService {
   getLessonSession(journeyId: string, lessonId?: string): Promise<LessonSession>
@@ -16,11 +19,36 @@ class LessonService implements ILessonService {
    * Can easily be replaced with an HTTP client (e.g. fetch / axios) in the future.
    */
   async getLessonSession(journeyId: string, lessonId?: string): Promise<LessonSession> {
-    // Artificial small delay to simulate network latency if needed
-    await new Promise((resolve) => setTimeout(resolve, 80))
+    if(supabase && lessonId) {
+      const { data: lesson } = await supabase
+        .from('lessons')
+        .select('id, title, exercises(id, type, position, payload)')
+        .eq('id', lessonId)
+        .maybeSingle()
 
-    if(journeyId === 'sql' || lessonId === 'sql-intro-01') {
-      return structuredClone(mockSqlLessonSession)
+      if(lesson?.exercises?.length) {
+        const exercises = [...lesson.exercises]
+          .sort((a, b) => a.position - b.position)
+          .map((exercise) => {
+            const payload = exercise.payload as Record<string, unknown>
+
+            return {
+              id: exercise.id,
+              type: exercise.type,
+              ...payload,
+              ...(exercise.type === 'code-writing' && !payload.databaseSchema
+                ? { databaseSchema: mockSqlSchema }
+                : {}),
+            }
+          })
+
+        return {
+          id: lesson.id,
+          journeyId,
+          title: lesson.title,
+          exercises: exercises as LessonSession['exercises'],
+        }
+      }
     }
 
     return structuredClone(mockSqlLessonSession)

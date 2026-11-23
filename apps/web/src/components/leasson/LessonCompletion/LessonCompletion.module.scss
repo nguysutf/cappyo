@@ -53,7 +53,7 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: $spacing-3;
   width: 100%;
 }
@@ -73,6 +73,9 @@
   font-size: 1.5rem;
   font-weight: 800;
   color: $color-text;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 
   &.accuracy {
     color: $color-primary;
@@ -85,6 +88,10 @@
   &.mistakes {
     color: $color-danger;
   }
+}
+
+@media (max-width: 560px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .statLabel {

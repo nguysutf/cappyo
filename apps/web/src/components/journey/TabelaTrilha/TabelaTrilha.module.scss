@@ -1,3 +1,6 @@
+.panel { display: grid; gap: 20px; }
+.goalCard { padding: 16px; border: 1px solid $color-primary-light; border-radius: $radius-lg; background: linear-gradient(145deg, #eef2ff, #fff); }
+.goalHeader { display: flex; justify-content: space-between; align-items: center; color: $color-text; font-size: .82rem; font-weight: 800; }.goalHeader strong { color: $color-primary-hover; font-size: .8rem; }.goalTrack { height: 8px; margin: 13px 0 8px; border-radius: 99px; background: #c7d2fe; overflow: hidden; }.goalTrack span { display: block; height: 100%; border-radius: inherit; background: $color-primary; transition: width .3s ease; }.goalCard p { color: $color-text-muted; font-size: .72rem; font-weight: 700; }
 .tabela {
   width: 100%;
   border-collapse: collapse;

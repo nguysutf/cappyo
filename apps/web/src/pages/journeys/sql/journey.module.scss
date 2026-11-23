@@ -1,17 +1,17 @@
 .page {
   min-height: 100vh;
-  background: $color-bg;
+  background: radial-gradient(circle at 12% 0%, #eef2ff 0, transparent 32%), $color-bg;
 }
 
 .layout {
   max-width: 1040px;
   margin: 0 auto;
-  padding: $spacing-5 $spacing-4 $spacing-8;
+  padding: $spacing-6 $spacing-4 $spacing-8;
   display: grid;
   gap: $spacing-6;
 
   @media (min-width: 900px) {
-    grid-template-columns: 600px 300px;
+    grid-template-columns: minmax(0, 650px) 280px;
     justify-content: center;
   }
 }
@@ -19,8 +19,19 @@
 .main {
   display: flex;
   flex-direction: column;
-  gap: $spacing-7;
+  gap: $spacing-6;
 }
+
+.welcome { padding: 30px; border-radius: 22px; color: #fff; display: flex; justify-content: space-between; gap: 24px; overflow: hidden; position: relative; background: linear-gradient(120deg, #3730a3, #6366f1 58%, #8b5cf6); box-shadow: 0 10px 24px rgba(79,70,229,.22); }
+.welcome::after { content: ''; position: absolute; width: 220px; height: 220px; border: 35px solid rgba(255,255,255,.08); border-radius: 50%; right: -65px; top: -90px; }
+.welcome h1 { margin: 7px 0 8px; max-width: 460px; font-size: clamp(1.65rem, 3vw, 2.2rem); letter-spacing: -.04em; }
+.subhead { max-width: 470px; color: #dfe1ff; line-height: 1.5; font-size: .95rem; }
+.eyebrow { display: flex; align-items: center; gap: 6px; margin: 0; font-size: .7rem; letter-spacing: .12em; font-weight: 800; opacity: .8; }
+.primaryCta { margin-top: 18px; border: 0; border-radius: 10px; background: #fff; color: $color-primary-hover; padding: 12px 15px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 3px 0 #c7d2fe; }
+.heroBadge { width: 104px; height: 104px; flex: 0 0 auto; align-self: center; border-radius: 50%; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.heroBadge svg { color: #fde68a; margin-bottom: 3px; }.heroBadge strong { font-size: 1.4rem; }.heroBadge span { font-size: .65rem; opacity: .8; }
+.statsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }.statCard { display: flex; align-items: center; gap: 10px; padding: 14px; border: 1px solid $color-border; border-radius: 14px; background: rgba(255,255,255,.75); }.statCard strong { display: block; font-size: 1.05rem; }.statCard small { display: block; color: $color-text-muted; font-size: .72rem; margin-top: 2px; }.statIcon { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; }.purple { color: $color-primary; background: $color-primary-light; }.orange { color: $color-warning-hover; background: $color-warning-light; }.yellow { color: #b45309; background: #fef3c7; }
+.sectionHeading { display: flex; align-items: end; justify-content: space-between; margin-top: 8px; }.sectionHeading h2 { margin-top: 4px; font-size: 1.45rem; }.sectionHeading > span { display: flex; align-items: center; gap: 2px; color: $color-text-muted; font-size: .78rem; font-weight: 700; }
 
 .sidebar {
   @media (min-width: 900px) {
@@ -29,3 +40,5 @@
     align-self: start;
   }
 }
+
+@media (max-width: 650px) { .layout { padding-top: 20px; } .welcome { padding: 22px; } .heroBadge { display: none; } .statsGrid { grid-template-columns: 1fr; } .sectionHeading { align-items: start; gap: 8px; flex-direction: column; } }

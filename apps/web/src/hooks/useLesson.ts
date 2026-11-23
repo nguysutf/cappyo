@@ -13,6 +13,7 @@ export interface LessonSummary {
   correctCount: number
   mistakesCount: number
   accuracyPercentage: number
+  xpEarned: number
 }
 
 export function useLesson(session: LessonSession | null) {
@@ -44,7 +45,7 @@ export function useLesson(session: LessonSession | null) {
   }, [])
 
   const handleCheckAnswer = useCallback((executionResult?: ExecutionResult) => {
-    if(!currentExercise || !userAnswer.trim()) return
+    if(!currentExercise || !userAnswer.trim()) return null
 
     const validationResult = validateExercise(currentExercise, userAnswer, executionResult)
 
@@ -58,6 +59,8 @@ export function useLesson(session: LessonSession | null) {
         userAnswer,
       },
     ])
+
+    return validationResult
   }, [currentExercise, userAnswer])
 
   const handleNext = useCallback(() => {
@@ -88,6 +91,7 @@ export function useLesson(session: LessonSession | null) {
     mistakesCount,
     accuracyPercentage:
       totalExercises > 0 ? Math.round((correctCount / totalExercises) * 100) : 0,
+    xpEarned: correctCount * 10 + (correctCount === totalExercises ? 20 : 0),
   }
 
   return {

@@ -1,4 +1,4 @@
-import { Check, Lock, Play } from 'lucide-react'
+import { Check, ChevronRight, Lock, Play, Star } from 'lucide-react'
 
 import styles from './LessonNode.module.scss'
 
@@ -28,14 +28,19 @@ export function LessonNode({ index, title, status, color, onStart }: LessonNodeP
     <li className={styles.item}>
       <button
         type="button"
-        className={`${styles.node} ${styles[color]} ${status === 'locked' ? styles.locked : ''}`}
+        className={`${styles.node} ${status === 'locked' ? styles.locked : ''}`}
         onClick={onStart}
         disabled={status === 'locked'}
         aria-label={`Lição ${index}: ${title} — ${statusLabel[status]}`}
       >
-        <Icon size={30} strokeWidth={3} aria-hidden="true" />
+        <span className={`${styles.iconWrap} ${styles[color]} ${status === 'locked' ? styles.locked : ''}`}><Icon size={20} strokeWidth={2.6} aria-hidden="true" /></span>
+        <span className={styles.lessonCopy}><span className={styles.step}>LIÇÃO {String(index).padStart(2, '0')}</span><span className={styles.title}>{title}</span></span>
+        <span className={`${styles.meta} ${status === 'current' ? styles.currentMeta : ''}`}>
+          {status === 'completed' ? <><Check size={13} /> concluída</> : status === 'current' ? 'começar agora' : 'bloqueada'}
+        </span>
+        <span className={styles.reward}><Star size={12} fill="currentColor" /> 100 XP</span>
+        <ChevronRight className={styles.chevron} size={19} aria-hidden="true" />
       </button>
-      <span className={styles.title}>{title}</span>
     </li>
   )
 }

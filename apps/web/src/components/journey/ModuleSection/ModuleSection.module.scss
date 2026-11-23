@@ -6,11 +6,13 @@
 }
 
 .banner {
-  padding: $spacing-4 $spacing-5;
-  border-radius: $radius-lg;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.2);
+  padding: 22px 24px 18px;
+  border-radius: 18px 18px 8px 8px;
   color: #fff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, .1);
 }
+
+.bannerTop { display: flex; align-items: center; gap: 14px; }.moduleNumber { display: grid; place-items: center; width: 46px; height: 46px; flex: 0 0 auto; border-radius: 12px; background: rgba(0,0,0,.16); font-size: 1.15rem; font-weight: 900; letter-spacing: -.05em; }
 
 .primary { background: $color-primary; }
 .secondary { background: $color-secondary-hover; }
@@ -30,10 +32,23 @@
 }
 
 .description { font-size: 0.9rem; }
+.kicker { display: flex; align-items: center; gap: 6px; }.kicker span { opacity: .55; }
+.progressLabel { margin-left: auto; text-align: right; flex: 0 0 auto; }.progressLabel strong { display: block; font-size: 1.25rem; line-height: 1; }.progressLabel span { font-size: .62rem; opacity: .72; }
+.progressTrack { height: 7px; background: rgba(0,0,0,.18); border-radius: 99px; overflow: hidden; margin-top: 18px; }.progressTrack span { display: block; height: 100%; border-radius: inherit; background: #fff; transition: width .35s ease; }
+.progressMeta { display: flex; justify-content: space-between; margin-top: 8px; font-size: .7rem; font-weight: 700; opacity: .82; }.progressMeta span:last-child { display: flex; align-items: center; gap: 4px; }
 
 .path {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: $spacing-5;
+  gap: 8px;
+  position: relative;
+  padding: 12px 0 0;
+  margin: 0;
+  list-style: none;
+}
+.path::before { content: ''; position: absolute; top: 12px; bottom: 12px; left: 22px; width: 2px; background: $color-border; z-index: 0; }
+.nextHint { display: flex; align-items: center; gap: 5px; margin: 4px 0 0 8px; color: $color-text-muted; font-size: .7rem; font-weight: 700; }
+
+@media (max-width: 580px) {
+  .banner { padding: 18px; }.bannerTop { align-items: flex-start; }.moduleNumber { width: 38px; height: 38px; font-size: 1rem; }.progressLabel { display: none; }.path { gap: 6px; }
 }

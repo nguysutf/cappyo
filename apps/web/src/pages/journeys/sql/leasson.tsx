@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { Lives } from '@/components/game/Lives'
 import { ExerciseRenderer } from '@/components/leasson/exercises/ExerciseRenderer'
 import { FeedbackFooter } from '@/components/leasson/FeedbackFooter'
 import { LeassonLayout } from '@/components/leasson/layout'
@@ -11,7 +10,7 @@ import { Button } from '@/components/ui/Button'
 import { useLesson } from '@/hooks/useLesson'
 import { ganharXp, VIDAS_POR_LICAO, XP_POR_ACERTO } from '@/services/game'
 import { lessonService } from '@/services/lessonService'
-import { marcarConcluida } from '@/services/progress'
+import { getLearnerStats, recordExerciseAttempt, recordLessonCompletion, type LearnerStats } from '@/services/progress'
 import type { ExecutionResult } from '@/types/database'
 import type { LessonSession } from '@/types/lesson'
 
@@ -22,6 +21,11 @@ export function SqlLessonPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [vidas, setVidas] = useState(VIDAS_POR_LICAO)
   const [lastExecution, setLastExecution] = useState<ExecutionResult | undefined>(undefined)
+  const [stats, setStats] = useState<LearnerStats>({ xp: 0, streak: 0, hearts: 5, dailyGoal: 20, dailyXp: 0 })
+
+  useEffect(() => {
+    void getLearnerStats().then(setStats)
+  }, [])
 
   useEffect(() => {
     let isMounted = true
@@ -65,8 +69,14 @@ export function SqlLessonPage() {
   }, [navigate])
 
   useEffect(() => {
-    if(isCompleted) marcarConcluida(lessonId)
-  }, [isCompleted, lessonId])
+    if(isCompleted) {
+      void recordLessonCompletion(lessonId, {
+        accuracy: summary.accuracyPercentage,
+        exercisesCompleted: summary.total,
+        xpEarned: summary.xpEarned,
+      })
+    }
+  }, [isCompleted, lessonId, summary.accuracyPercentage, summary.total, summary.xpEarned])
 
   useEffect(() => {
     if(!feedback) return
@@ -80,8 +90,13 @@ export function SqlLessonPage() {
   }
 
   const handleTriggerCheck = useCallback(() => {
-    handleCheckAnswer(lastExecution)
-  }, [handleCheckAnswer, lastExecution])
+    const result = handleCheckAnswer(lastExecution)
+
+    if(result && currentExercise) {
+      void recordExerciseAttempt(lessonId, currentExercise.id, result.userAnswer, result.isCorrect, lastExecution)
+      if(!result.isCorrect) setStats((current) => ({ ...current, hearts: Math.max(0, current.hearts - 1) }))
+    }
+  }, [currentExercise, handleCheckAnswer, lastExecution, lessonId])
 
   // Global keyboard shortcuts: Enter confirms or proceeds to next question
   useEffect(() => {
@@ -127,6 +142,7 @@ export function SqlLessonPage() {
             total={totalExercises}
             progressPercentage={100}
             onClose={handleExit}
+            hearts={stats.hearts}
           />
         }
       >
@@ -165,17 +181,13 @@ export function SqlLessonPage() {
   return (
     <LeassonLayout
       header={
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ flex: 1 }}>
-            <ProgressBar
-              current={currentIndex + 1}
-              total={totalExercises}
-              progressPercentage={progressPercentage}
-              onClose={handleExit}
-            />
-          </div>
-          <Lives vidas={vidas} />
-        </div>
+        <ProgressBar
+          current={currentIndex + 1}
+          total={totalExercises}
+          progressPercentage={progressPercentage}
+          onClose={handleExit}
+          hearts={stats.hearts}
+        />
       }
       footer={
         <FeedbackFooter

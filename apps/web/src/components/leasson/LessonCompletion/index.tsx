@@ -1,4 +1,4 @@
-import { Trophy, RotateCcw, Home } from 'lucide-react'
+import { Trophy, RotateCcw, Home, Sparkles } from 'lucide-react'
 
 import type { LessonSummary } from '@/hooks/useLesson'
 
@@ -34,6 +34,13 @@ export function LessonCompletion({
             {summary.accuracyPercentage}%
           </span>
           <span className={styles.statLabel}>Precisão</span>
+        </div>
+
+        <div className={styles.statItem}>
+          <span className={`${styles.statValue} ${styles.accuracy}`}>
+            <Sparkles size={19} /> {summary.xpEarned}
+          </span>
+          <span className={styles.statLabel}>XP ganhos</span>
         </div>
 
         <div className={styles.statItem}>

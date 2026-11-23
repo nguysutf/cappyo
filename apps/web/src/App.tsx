@@ -1,7 +1,7 @@
+import { Navigate } from 'react-router-dom'
+
 function App() {
-  return (
-    <h1>Teste</h1>
-  )
+  return <Navigate to="/journeys/sql" replace />
 }
 
 export default App
