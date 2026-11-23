@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2, ChevronRight, Flame, Sparkles, Trophy } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import type { LessonStatus } from '@/components/journey/LessonNode'
 import { ModuleSection } from '@/components/journey/ModuleSection'
@@ -15,9 +15,14 @@ import styles from './journey.module.scss'
 
 export function SqlJourneyPage() {
   const navigate = useNavigate()
+  const { hash } = useLocation()
   const [concluidas, setConcluidas] = useState(getConcluidas)
   const [stats, setStats] = useState<LearnerStats>({ xp: 0, streak: 0, hearts: 5, dailyGoal: 20, dailyXp: 0 })
   const [journey, setJourney] = useState(sqlJourney)
+
+  useEffect(() => {
+    if(hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' })
+  }, [hash, journey])
 
   useEffect(() => {
     void syncProgressFromSupabase().then(setConcluidas)
