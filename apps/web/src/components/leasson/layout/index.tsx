@@ -21,7 +21,7 @@ export function LeassonLayout({ header, footer, children }: LeassonLayoutProps) 
         <div className={styles.exerciseWrapper}>{children}</div>
       </main>
 
-      {footer}
+      {footer && <div className={styles.footer}>{footer}</div>}
     </div>
   )
 }
