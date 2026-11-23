@@ -33,7 +33,7 @@ export function SqlJourneyPage() {
   const todasLicoes = journey.flatMap((m) => m.lessons)
   const atual = todasLicoes.find((l) => !concluidas.includes(l.id))
   const percentual = Math.round((concluidas.length / todasLicoes.length) * 100)
-  const xp = stats.xp || concluidas.length * 100
+  const xp = stats.xp
 
   function getStatus(lessonId: string): LessonStatus {
     if(concluidas.includes(lessonId)) return 'completed'
