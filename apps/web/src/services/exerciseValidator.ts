@@ -50,42 +50,62 @@ export function validateCodeWriting(
   userAnswer: string,
   executionResult?: ExecutionResult,
 ): ExerciseValidationResult {
-  const normalizedUser = normalizeAnswer(userAnswer)
+  const correctAnswer = exercise.solutionQuery ?? ''
 
-  if(exercise.expectedResult && executionResult?.success && executionResult.rows) {
-    const expectedCols = exercise.expectedResult.columns ?? []
-    const actualCols = executionResult.columns ?? []
-
-    const colsMatch
-      = expectedCols.length === 0
-      || (expectedCols.length === actualCols.length
-        && expectedCols.every((c, i) => c.toLowerCase() === actualCols[i]?.toLowerCase()))
-
-    const rowsMatch
-      = JSON.stringify(executionResult.rows) === JSON.stringify(exercise.expectedResult.rows)
-
-    const isCorrect = colsMatch && rowsMatch
-
+  if(!executionResult?.success) {
     return {
-      isCorrect,
+      isCorrect: false,
       userAnswer,
-      correctAnswer: exercise.solutionQuery ?? 'SELECT name, email FROM users WHERE active = true;',
-      explanation: isCorrect
-        ? exercise.explanation
-        : 'Sua consulta rodou com sucesso, mas o resultado retornado não atendeu a todos os requisitos do exercício (verifique as colunas e filtros).',
+      correctAnswer,
+      explanation: executionResult
+        ? 'Sua consulta tem um erro. Veja a mensagem na aba Resultado e tente de novo.'
+        : 'Execute sua consulta antes de verificar.',
     }
   }
 
-  const isCorrect = exercise.solutionQuery
-    ? normalizeAnswer(exercise.solutionQuery) === normalizedUser
-    : normalizedUser.includes('SELECT') && normalizedUser.includes('FROM')
+  const expected = executionResult.expected ?? {
+    columns: exercise.expectedResult?.columns ?? [],
+    rows: exercise.expectedResult?.rows ?? [],
+  }
+  const orderMatters = /ORDER\s+BY/i.test(correctAnswer)
+
+  const isCorrect = sameResult(
+    { columns: executionResult.columns ?? [], rows: executionResult.rows ?? [] },
+    expected,
+    orderMatters,
+  )
 
   return {
     isCorrect,
     userAnswer,
-    correctAnswer: exercise.solutionQuery ?? '',
-    explanation: exercise.explanation,
+    correctAnswer,
+    explanation: isCorrect
+      ? exercise.explanation
+      : 'Sua consulta rodou, mas o resultado não é o esperado. Confira as colunas, os filtros e a ordem.',
   }
+}
+
+function sameResult(
+  actual: { columns: string[]; rows: Record<string, unknown>[] },
+  expected: { columns: string[]; rows: Record<string, unknown>[] },
+  orderMatters: boolean,
+) {
+  const sameColumns
+    = actual.columns.length === expected.columns.length
+    && actual.columns.every((c, i) => c.toLowerCase() === expected.columns[i]?.toLowerCase())
+
+  if(!sameColumns || actual.rows.length !== expected.rows.length) return false
+
+  const toKeys = (rows: Record<string, unknown>[]) => rows.map((r) => JSON.stringify(Object.values(r)))
+  const a = toKeys(actual.rows)
+  const b = toKeys(expected.rows)
+
+  if(!orderMatters) {
+    a.sort()
+    b.sort()
+  }
+
+  return a.every((row, i) => row === b[i])
 }
 
 function validateMultipleChoice(

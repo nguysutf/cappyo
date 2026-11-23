@@ -16,6 +16,7 @@ declare module 'sql.js' {
   interface SqlJsDatabase {
     exec(sql: string): SqlJsResult[]
     run(sql: string): void
+    getRowsModified(): number
     prepare(sql: string): SqlJsStatement
     close(): void
   }

@@ -34,7 +34,7 @@ export function CodeWriting({
   const handleExecute = useCallback(async () => {
     setIsExecuting(true)
     try {
-      const res = await codeExecutor.execute(userAnswer, exercise.databaseSchema)
+      const res = await codeExecutor.execute(userAnswer, exercise.databaseSchema, exercise.solutionQuery)
 
       setExecutionResult(res)
       setActiveTabId('result')
@@ -42,7 +42,7 @@ export function CodeWriting({
     } finally {
       setIsExecuting(false)
     }
-  }, [userAnswer, exercise.databaseSchema, onExecutionComplete])
+  }, [userAnswer, exercise.databaseSchema, exercise.solutionQuery, onExecutionComplete])
 
   const handleInsertText = useCallback(
     (text: string) => {
