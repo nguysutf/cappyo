@@ -1,6 +1,7 @@
 import type { ExecutionResult } from '@/types/database'
 import type {
   CodeCompletionExercise,
+  CodeOrderingExercise,
   CodeWritingExercise,
   ExerciseValidationResult,
   LessonExercise,
@@ -36,6 +37,9 @@ export function validateExercise(
 
     case 'code-writing':
       return validateCodeWriting(exercise, userAnswer, executionResult)
+
+    case 'code-ordering':
+      return validateCodeOrdering(exercise, userAnswer)
 
     default: {
       const _exhaustiveCheck: never = exercise
@@ -159,6 +163,20 @@ function validateCodeCompletion(
     isCorrect,
     userAnswer,
     correctAnswer: exercise.answer,
+    explanation: exercise.explanation,
+  }
+}
+function validateCodeOrdering(
+  exercise: CodeOrderingExercise,
+  userAnswer: string,
+): ExerciseValidationResult {
+  const correctOrder = exercise.fragments.join(' ')
+  const userOrder = (JSON.parse(userAnswer || '[]') as string[]).join(' ')
+
+  return {
+    isCorrect: userOrder === correctOrder,
+    userAnswer: userOrder,
+    correctAnswer: correctOrder,
     explanation: exercise.explanation,
   }
 }

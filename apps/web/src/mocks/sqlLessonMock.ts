@@ -69,6 +69,15 @@ export const mockSqlLessonSession: LessonSession = {
       explanation: 'O asterisco (*) é o caractere curinga que representa todas as colunas de uma tabela.',
     },
     {
+      id: 'ex-06-ordem',
+      type: 'code-ordering',
+      language: 'sql',
+      title: 'Ordem do comando',
+      question: 'Monte a consulta que lista os nomes dos usuários ativos, em ordem alfabética.',
+      fragments: ['SELECT name', 'FROM users', 'WHERE active = true', 'ORDER BY name'],
+      explanation: 'Uma consulta SQL sempre segue esta ordem: SELECT (o quê), FROM (de onde), WHERE (filtro) e ORDER BY (ordenação).',
+    },
+    {
       id: 'ex-06',
       type: 'code-writing',
       language: 'sql',
