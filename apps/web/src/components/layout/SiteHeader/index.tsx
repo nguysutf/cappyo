@@ -18,8 +18,7 @@ export function SiteHeader() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link to="/journeys/sql" className={styles.brand}>
-          <span className={styles.logoMark}>C</span>
-          <span>Cappyo</span>
+          <img src="/logo.png" alt="Cappyo — voltar para a trilha" className={styles.logo} />
         </Link>
         <nav className={styles.nav} aria-label="Navegação principal">
           <Link to="/journeys/sql" className={styles.navLink}>Minha trilha</Link>
