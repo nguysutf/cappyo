@@ -1,0 +1,75 @@
+.page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4 $spacing-8;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+
+  h1 { font-size: 1.75rem; font-weight: 800; }
+}
+
+.cards {
+  display: grid;
+  gap: $spacing-4;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background: $color-surface;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h2 { font-size: 1.1rem; font-weight: 800; }
+  p { font-size: 0.85rem; color: $color-text-muted; }
+}
+
+.barra {
+  height: 14px;
+  background: $color-border;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.preenchido {
+  height: 100%;
+  background: $color-success;
+  border-radius: $radius-round;
+}
+
+.modulos {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.moduloTopo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-1;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.aviso {
+  text-align: center;
+  color: $color-text-muted;
+  font-weight: 600;
+}
+.destaque {
+  font-size: 1.6rem !important;
+  font-weight: 800;
+  color: $color-warning-hover !important;
+}

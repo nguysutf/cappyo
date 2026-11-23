@@ -35,4 +35,7 @@
 .stat:nth-of-type(2) { color: $color-primary; }
 .avatar { width: 32px; height: 32px; border: 1px solid $color-border-dark; border-radius: 50%; background: $color-primary-light; color: $color-primary-hover; display: grid; place-items: center; cursor: pointer; }
 
-@media (max-width: 650px) { .stat { display: none; } .nav { gap: $spacing-3; } }
+.navLink { white-space: nowrap; }
+.brand { flex-shrink: 0; }
+@media (max-width: 650px) { .stat { display: none; } .nav { gap: 10px; font-size: .8rem; } .logo { height: 44px; } }
+@media (max-width: 360px) { .nav { gap: 8px; font-size: .75rem; } .logo { height: 36px; } }
