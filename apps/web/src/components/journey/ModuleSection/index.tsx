@@ -1,4 +1,4 @@
-import { Check, LockKeyhole, Sparkles } from 'lucide-react'
+import { Check, LockKeyhole, PlayCircle, Sparkles } from 'lucide-react'
 
 import type { Module } from '@/data/sqlJourney'
 
@@ -31,6 +31,21 @@ export function ModuleSection({ module, number, getStatus, onStartLesson }: Modu
         <div className={styles.progressTrack}><span style={{ width: `${progress}%` }} /></div>
         <div className={styles.progressMeta}><span>{completed}/{module.lessons.length} lições</span><span>{progress === 100 ? <><Check size={14} /> Fase completa</> : <><Sparkles size={14} /> +{module.lessons.length - completed} desafios</>}</span></div>
       </header>
+
+      {module.videoId && (
+        <details className={styles.video}>
+          <summary>
+            <PlayCircle size={20} aria-hidden="true" /> Assistir videoaula
+          </summary>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${module.videoId}?cc_load_policy=1&cc_lang_pref=pt&hl=pt-BR`}
+            title={`Videoaula do módulo ${number}: ${module.title}`}
+            loading="lazy"
+            allow="encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        </details>
+      )}
 
       <ol className={styles.path}>
         {module.lessons.map((lesson, i) => (
