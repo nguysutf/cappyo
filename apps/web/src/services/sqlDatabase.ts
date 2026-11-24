@@ -170,3 +170,41 @@ export async function executeSql(code: string, schema: DatabaseSchema, solutionQ
     database?.close()
   }
 }
+
+export async function createSqlSession(schema: DatabaseSchema) {
+  let database: Database = await createDatabase(schema)
+
+  return {
+    execute(code: string): ExecutionResult {
+      const query = code.trim()
+
+      if(!query) return { success: false, error: 'Escreva um comando SQL antes de executar.' }
+
+      const startedAt = performance.now()
+
+      try {
+        return {
+          success: true,
+          ...run(database, schema, query),
+          executionTime: Math.max(1, Math.round(performance.now() - startedAt)),
+        }
+      } catch(error) {
+        return {
+          success: false,
+          error: error instanceof Error ? `Erro no SQL: ${error.message}` : 'Não foi possível executar o comando.',
+        }
+      }
+    },
+
+    async reset() {
+      database.close()
+      database = await createDatabase(schema)
+    },
+
+    close() {
+      database.close()
+    },
+  }
+}
+
+export type SqlSession = Awaited<ReturnType<typeof createSqlSession>>

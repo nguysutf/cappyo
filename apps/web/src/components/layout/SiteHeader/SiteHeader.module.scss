@@ -37,5 +37,12 @@
 
 .navLink { white-space: nowrap; }
 .brand { flex-shrink: 0; }
-@media (max-width: 650px) { .stat { display: none; } .nav { gap: 10px; font-size: .8rem; } .logo { height: 44px; } }
-@media (max-width: 360px) { .nav { gap: 8px; font-size: .75rem; } .logo { height: 36px; } }
+.nav { margin-left: auto; }
+// No celular os links vão para uma segunda linha, com rolagem lateral se precisar
+@media (max-width: 650px) {
+  .inner { flex-wrap: wrap; row-gap: 4px; padding-bottom: 8px; }
+  .stat { display: none; }
+  .nav { order: 3; width: 100%; margin-left: 0; gap: 14px; font-size: .85rem; overflow-x: auto; padding-bottom: 2px; }
+  .avatar { margin-left: auto; flex-shrink: 0; }
+  .logo { height: 44px; }
+}

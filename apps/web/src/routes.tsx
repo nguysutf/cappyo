@@ -5,6 +5,7 @@ import { CoursesPage } from '@/pages/courses'
 import { DesignSystemPage } from '@/pages/design-system'
 import { SqlJourneyPage } from '@/pages/journeys/sql'
 import { SqlLessonPage } from '@/pages/journeys/sql/leasson'
+import { LabPage } from '@/pages/lab'
 import { ProgressPage } from '@/pages/progress'
 
 export function AppRoutes() {
@@ -14,6 +15,7 @@ export function AppRoutes() {
       <Route path="/journeys/sql" element={<SqlJourneyPage />} />
       <Route path="/journeys/sql/leasson/:lessonId" element={<SqlLessonPage />} />
       <Route path="/progresso" element={<ProgressPage />} />
+      <Route path="/laboratorio" element={<LabPage />} />
       <Route path="/cursos" element={<CoursesPage />} />
       <Route path="/design-system" element={<DesignSystemPage />} />
       <Route path="/auth" element={<AuthPage />} />
