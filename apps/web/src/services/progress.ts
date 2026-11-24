@@ -188,31 +188,18 @@ export async function recordExerciseAttempt(
   isCorrect: boolean,
   executionResult?: unknown,
 ) {
-  if(!isCorrect) {
-    const stored = readStoredStats()
-
-    writeStoredStats({ ...stored, hearts: Math.max(0, stored.hearts - 1) })
-  }
-
   if(!supabase) return
 
   const { data: userData } = await supabase.auth.getUser()
 
   if(!userData.user) return
 
-  await Promise.all([
-    supabase.from('user_exercise_attempts').insert({
-      user_id: userData.user.id,
-      lesson_id: lessonId,
-      exercise_id: exerciseId,
-      answer,
-      is_correct: isCorrect,
-      execution_result: executionResult ?? null,
-    }),
-    !isCorrect
-      ? supabase.from('profiles').select('hearts').eq('id', userData.user.id).maybeSingle().then(({ data }) => {
-        return supabase.from('profiles').update({ hearts: Math.max(0, (data?.hearts ?? 5) - 1) }).eq('id', userData.user.id)
-      })
-      : Promise.resolve(),
-  ])
+  await supabase.from('user_exercise_attempts').insert({
+    user_id: userData.user.id,
+    lesson_id: lessonId,
+    exercise_id: exerciseId,
+    answer,
+    is_correct: isCorrect,
+    execution_result: executionResult ?? null,
+  })
 }

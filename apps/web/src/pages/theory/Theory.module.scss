@@ -1,0 +1,82 @@
+.page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4 $spacing-8;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.topo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: $color-primary;
+}
+
+.intro {
+  font-size: 1.05rem;
+  color: $color-text-muted;
+}
+
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  margin-top: $spacing-1;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
+
+.praticar {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-md;
+  border-bottom: 4px solid $color-primary-hover;
+  background: $color-primary;
+  color: #fff;
+  font-weight: 800;
+}
+
+.navegacao {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-border;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-text-muted;
+  }
+}

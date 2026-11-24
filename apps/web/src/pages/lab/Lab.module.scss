@@ -1,0 +1,139 @@
+.page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4 $spacing-8;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h1 { font-size: 2rem; font-weight: 800; }
+  p { color: $color-text-muted; }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: $color-primary !important;
+}
+
+.bancos {
+  display: grid;
+  gap: $spacing-3;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.banco {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: $spacing-3 $spacing-4;
+  border: 2px solid $color-border;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  cursor: pointer;
+
+  strong { font-size: 1rem; }
+  span { font-size: 0.8rem; color: $color-text-muted; }
+}
+
+.bancoAtivo {
+  border-color: $color-primary;
+  background: $color-primary-light;
+}
+
+.area {
+  display: grid;
+  gap: $spacing-4;
+  align-items: start;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 280px minmax(0, 1fr);
+
+    .trabalho { order: 0; }
+  }
+}
+
+.tabelas {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h2 { font-size: 1rem; font-weight: 800; }
+}
+
+.trabalho {
+  order: -1; // no celular o editor vem antes das tabelas
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  min-width: 0;
+}
+
+.exemplos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $color-text-muted;
+
+  button {
+    padding: 4px 10px;
+    border: 1px solid $color-border-dark;
+    border-radius: $radius-round;
+    background: $color-surface;
+    color: $color-primary;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.restaurar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-md;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.restaurar {
+  border: 2px solid $color-border;
+  background: $color-surface;
+  color: $color-text;
+}
+
+.aviso {
+  min-height: 1.2em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $color-success-hover;
+}

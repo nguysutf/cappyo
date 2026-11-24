@@ -8,9 +8,9 @@ import { LessonCompletion } from '@/components/leasson/LessonCompletion'
 import { ProgressBar } from '@/components/leasson/ProgressBar'
 import { Button } from '@/components/ui/Button'
 import { useLesson } from '@/hooks/useLesson'
-import { ganharXp, VIDAS_POR_LICAO, XP_POR_ACERTO } from '@/services/game'
+import { VIDAS_POR_LICAO } from '@/services/game'
 import { lessonService } from '@/services/lessonService'
-import { getLearnerStats, recordExerciseAttempt, recordLessonCompletion, type LearnerStats } from '@/services/progress'
+import { recordExerciseAttempt, recordLessonCompletion } from '@/services/progress'
 import type { ExecutionResult } from '@/types/database'
 import type { LessonSession } from '@/types/lesson'
 
@@ -21,11 +21,6 @@ export function SqlLessonPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [vidas, setVidas] = useState(VIDAS_POR_LICAO)
   const [lastExecution, setLastExecution] = useState<ExecutionResult | undefined>(undefined)
-  const [stats, setStats] = useState<LearnerStats>({ xp: 0, streak: 0, hearts: 5, dailyGoal: 20, dailyXp: 0 })
-
-  useEffect(() => {
-    void getLearnerStats().then(setStats)
-  }, [])
 
   useEffect(() => {
     let isMounted = true
@@ -79,9 +74,7 @@ export function SqlLessonPage() {
   }, [isCompleted, lessonId, summary.accuracyPercentage, summary.total, summary.xpEarned])
 
   useEffect(() => {
-    if(!feedback) return
-    if(feedback.isCorrect) ganharXp(XP_POR_ACERTO)
-    else setVidas((v) => v - 1)
+    if(feedback && !feedback.isCorrect) setVidas((v) => v - 1)
   }, [feedback])
 
   const recomecar = () => {
@@ -94,7 +87,6 @@ export function SqlLessonPage() {
 
     if(result && currentExercise) {
       void recordExerciseAttempt(lessonId, currentExercise.id, result.userAnswer, result.isCorrect, lastExecution)
-      if(!result.isCorrect) setStats((current) => ({ ...current, hearts: Math.max(0, current.hearts - 1) }))
     }
   }, [currentExercise, handleCheckAnswer, lastExecution, lessonId])
 
@@ -142,7 +134,7 @@ export function SqlLessonPage() {
             total={totalExercises}
             progressPercentage={100}
             onClose={handleExit}
-            hearts={stats.hearts}
+            hearts={vidas}
           />
         }
       >
@@ -186,7 +178,7 @@ export function SqlLessonPage() {
           total={totalExercises}
           progressPercentage={progressPercentage}
           onClose={handleExit}
-          hearts={stats.hearts}
+          hearts={vidas}
         />
       }
       footer={

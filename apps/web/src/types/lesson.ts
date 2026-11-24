@@ -3,6 +3,7 @@ export type ExerciseType
   | 'text-completion'
   | 'code-completion'
   | 'code-writing'
+  | 'code-ordering'
 
 export interface BaseExercise {
   id: string;
@@ -58,11 +59,18 @@ export interface CodeWritingExercise extends BaseExercise {
   }
 }
 
+export interface CodeOrderingExercise extends BaseExercise {
+  type: 'code-ordering';
+  language: 'sql';
+  fragments: string[]; // trechos na ordem CORRETA (a tela embaralha)
+}
+
 export type LessonExercise
   = | MultipleChoiceExercise
   | TextCompletionExercise
   | CodeCompletionExercise
   | CodeWritingExercise
+  | CodeOrderingExercise
 
 export interface LessonSession {
   id: string;

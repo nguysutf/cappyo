@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 
-.logoMark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: #fff; background: linear-gradient(145deg, $color-primary, #8b5cf6); box-shadow: 0 3px 0 #4338ca; }
+.logo { display: block; height: 64px; width: auto; }
 .nav { display: flex; align-items: center; gap: $spacing-4; color: $color-text-muted; font-size: .85rem; font-weight: 700; }
 .navLink { color: $color-text; text-decoration: none; }
 .stat { display: inline-flex; align-items: center; gap: 5px; color: $color-text-muted; }
@@ -35,4 +35,14 @@
 .stat:nth-of-type(2) { color: $color-primary; }
 .avatar { width: 32px; height: 32px; border: 1px solid $color-border-dark; border-radius: 50%; background: $color-primary-light; color: $color-primary-hover; display: grid; place-items: center; cursor: pointer; }
 
-@media (max-width: 650px) { .navLink, .stat { display: none; } }
+.navLink { white-space: nowrap; }
+.brand { flex-shrink: 0; }
+.nav { margin-left: auto; }
+// No celular os links vão para uma segunda linha, com rolagem lateral se precisar
+@media (max-width: 650px) {
+  .inner { flex-wrap: wrap; row-gap: 4px; padding-bottom: 8px; }
+  .stat { display: none; }
+  .nav { order: 3; width: 100%; margin-left: 0; gap: 14px; font-size: .85rem; overflow-x: auto; padding-bottom: 2px; }
+  .avatar { margin-left: auto; flex-shrink: 0; }
+  .logo { height: 44px; }
+}

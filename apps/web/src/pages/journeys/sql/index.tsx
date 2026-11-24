@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2, ChevronRight, Flame, Sparkles, Trophy } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import type { LessonStatus } from '@/components/journey/LessonNode'
 import { ModuleSection } from '@/components/journey/ModuleSection'
@@ -15,9 +15,14 @@ import styles from './journey.module.scss'
 
 export function SqlJourneyPage() {
   const navigate = useNavigate()
+  const { hash } = useLocation()
   const [concluidas, setConcluidas] = useState(getConcluidas)
   const [stats, setStats] = useState<LearnerStats>({ xp: 0, streak: 0, hearts: 5, dailyGoal: 20, dailyXp: 0 })
   const [journey, setJourney] = useState(sqlJourney)
+
+  useEffect(() => {
+    if(hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' })
+  }, [hash, journey])
 
   useEffect(() => {
     void syncProgressFromSupabase().then(setConcluidas)
@@ -28,11 +33,11 @@ export function SqlJourneyPage() {
   const todasLicoes = journey.flatMap((m) => m.lessons)
   const atual = todasLicoes.find((l) => !concluidas.includes(l.id))
   const percentual = Math.round((concluidas.length / todasLicoes.length) * 100)
-  const xp = stats.xp || concluidas.length * 100
+  const xp = stats.xp
 
   function getStatus(lessonId: string): LessonStatus {
     if(concluidas.includes(lessonId)) return 'completed'
-    if(lessonId === atual?.id) return 'current'
+    if(lessonId === atual?.id) return atual.available ? 'current' : 'soon'
     return 'locked'
   }
 
@@ -47,7 +52,7 @@ export function SqlJourneyPage() {
               <p className={styles.eyebrow}><Sparkles size={15} /> MISSÃO DE HOJE</p>
               <h1>Domine SQL, uma query por vez.</h1>
               <p className={styles.subhead}>Sua próxima conquista está a poucos minutos. Continue de onde parou e mantenha o ritmo.</p>
-              {atual && <button className={styles.primaryCta} type="button" onClick={() => navigate(`/journeys/sql/leasson/${atual.id}`)}>Continuar aprendendo <ArrowRight size={18} /></button>}
+              {atual?.available && <button className={styles.primaryCta} type="button" onClick={() => navigate(`/journeys/sql/leasson/${atual.id}`)}>Continuar aprendendo <ArrowRight size={18} /></button>}
             </div>
             <div className={styles.heroBadge}><Trophy size={34} /><strong>{percentual}%</strong><span>da trilha</span></div>
           </section>

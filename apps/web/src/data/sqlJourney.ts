@@ -9,6 +9,7 @@ export interface Module {
   title: string
   description: string
   color: 'primary' | 'secondary' | 'success' | 'warning' | 'info'
+  videoId?: string // id do vídeo no YouTube
   lessons: Lesson[]
 }
 
@@ -18,6 +19,7 @@ export const sqlJourney: Module[] = [
     title: 'SQL Básico',
     description: 'O que é um banco de dados, tabelas e o seu primeiro SELECT.',
     color: 'primary',
+    videoId: 'vm5PZmgsnV8',
     lessons: [
       { id: 'sql-intro-01', title: 'Comandos básicos', available: true },
       { id: 'sql-intro-02', title: 'Selecionando colunas', available: false },
@@ -29,6 +31,7 @@ export const sqlJourney: Module[] = [
     title: 'Manipulação de Dados',
     description: 'Inserir, atualizar e remover registros.',
     color: 'success',
+    videoId: 'r3sg4Bwa4Nc',
     lessons: [
       { id: 'dml-01', title: 'INSERT', available: false },
       { id: 'dml-02', title: 'UPDATE', available: false },
@@ -40,6 +43,7 @@ export const sqlJourney: Module[] = [
     title: 'WHERE Avançado',
     description: 'Filtros com AND, OR, IN, BETWEEN, LIKE e NULL.',
     color: 'warning',
+    videoId: '_a-e3x4P8JI',
     lessons: [
       { id: 'where-01', title: 'AND, OR e NOT', available: false },
       { id: 'where-02', title: 'IN e BETWEEN', available: false },
@@ -51,6 +55,7 @@ export const sqlJourney: Module[] = [
     title: 'Gerenciamento de Tabelas',
     description: 'Criar e alterar tabelas, tipos de dados e chaves.',
     color: 'info',
+    videoId: 'LOU50S-UUzs',
     lessons: [
       { id: 'ddl-01', title: 'CREATE TABLE', available: false },
       { id: 'ddl-02', title: 'Chaves primárias', available: false },
@@ -62,6 +67,7 @@ export const sqlJourney: Module[] = [
     title: 'JOIN',
     description: 'Combinar dados de várias tabelas.',
     color: 'secondary',
+    videoId: '-8QAt5AyPQw',
     lessons: [
       { id: 'join-01', title: 'INNER JOIN', available: false },
       { id: 'join-02', title: 'LEFT JOIN', available: false },

@@ -2,6 +2,7 @@ import type { ExecutionResult } from '@/types/database'
 import type { ExerciseValidationResult, LessonExercise } from '@/types/lesson'
 
 import { CodeCompletion } from './CodeCompletion'
+import { CodeOrdering } from './CodeOrdering'
 import { CodeWriting } from './CodeWriting'
 import { MultipleChoice } from './MultipleChoice'
 import { TextCompletion } from './TextCompletion'
@@ -66,6 +67,16 @@ export function ExerciseRenderer({
           onAnswerChange={onAnswerChange}
           isAnswered={isAnswered}
           onExecutionComplete={onExecutionComplete}
+        />
+      )
+
+    case 'code-ordering':
+      return (
+        <CodeOrdering
+          exercise={exercise}
+          value={userAnswer}
+          onChange={onAnswerChange}
+          isAnswered={isAnswered}
         />
       )
 

@@ -1,4 +1,5 @@
-import { Check, LockKeyhole, Sparkles } from 'lucide-react'
+import { BookOpen, Check, ChevronRight, LockKeyhole, PlayCircle, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import type { Module } from '@/data/sqlJourney'
 
@@ -22,7 +23,7 @@ export function ModuleSection({ module, number, getStatus, onStartLesson }: Modu
         <div className={styles.bannerTop}>
           <span className={styles.moduleNumber}>{String(number).padStart(2, '0')}</span>
           <div>
-            <p className={styles.kicker}>Fase {number} <span>•</span> {completed === module.lessons.length ? 'concluída' : 'em andamento'}</p>
+            <p className={styles.kicker}>Fase {number} <span>•</span> {completed === module.lessons.length ? 'concluída' : completed > 0 ? 'em andamento' : 'não iniciada'}</p>
             <h2 className={styles.title}>{module.title}</h2>
             <p className={styles.description}>{module.description}</p>
           </div>
@@ -31,6 +32,27 @@ export function ModuleSection({ module, number, getStatus, onStartLesson }: Modu
         <div className={styles.progressTrack}><span style={{ width: `${progress}%` }} /></div>
         <div className={styles.progressMeta}><span>{completed}/{module.lessons.length} lições</span><span>{progress === 100 ? <><Check size={14} /> Fase completa</> : <><Sparkles size={14} /> +{module.lessons.length - completed} desafios</>}</span></div>
       </header>
+
+      <Link to={`/teoria/${module.id}`} className={styles.teoria}>
+        <BookOpen size={20} aria-hidden="true" />
+        <span>Ler a teoria antes de praticar</span>
+        <ChevronRight size={18} aria-hidden="true" />
+      </Link>
+
+      {module.videoId && (
+        <details className={styles.video}>
+          <summary>
+            <PlayCircle size={20} aria-hidden="true" /> Assistir videoaula
+          </summary>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${module.videoId}?cc_load_policy=1&cc_lang_pref=pt&hl=pt-BR`}
+            title={`Videoaula do módulo ${number}: ${module.title}`}
+            loading="lazy"
+            allow="encrypted-media; picture-in-picture; fullscreen"
+            allowFullScreen
+          />
+        </details>
+      )}
 
       <ol className={styles.path}>
         {module.lessons.map((lesson, i) => (

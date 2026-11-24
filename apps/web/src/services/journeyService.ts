@@ -21,6 +21,7 @@ export async function getJourney(slug: string): Promise<Module[]> {
       title: module.title,
       description: module.description,
       color: module.color as Module['color'],
+      videoId: sqlJourney.find((local) => local.id === module.id)?.videoId,
       lessons: [...(module.lessons ?? [])]
         .sort((a, b) => a.sort_order - b.sort_order)
         .map((lesson) => ({

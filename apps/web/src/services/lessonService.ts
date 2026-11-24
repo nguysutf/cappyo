@@ -51,7 +51,9 @@ class LessonService implements ILessonService {
       }
     }
 
-    return structuredClone(mockSqlLessonSession)
+    if(!lessonId || lessonId === mockSqlLessonSession.id) return structuredClone(mockSqlLessonSession)
+
+    return { id: lessonId, journeyId, title: '', exercises: [] }
   }
 
   /**
