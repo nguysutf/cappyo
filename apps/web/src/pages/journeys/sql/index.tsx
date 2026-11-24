@@ -37,7 +37,7 @@ export function SqlJourneyPage() {
 
   function getStatus(lessonId: string): LessonStatus {
     if(concluidas.includes(lessonId)) return 'completed'
-    if(lessonId === atual?.id) return 'current'
+    if(lessonId === atual?.id) return atual.available ? 'current' : 'soon'
     return 'locked'
   }
 
@@ -52,7 +52,7 @@ export function SqlJourneyPage() {
               <p className={styles.eyebrow}><Sparkles size={15} /> MISSÃO DE HOJE</p>
               <h1>Domine SQL, uma query por vez.</h1>
               <p className={styles.subhead}>Sua próxima conquista está a poucos minutos. Continue de onde parou e mantenha o ritmo.</p>
-              {atual && <button className={styles.primaryCta} type="button" onClick={() => navigate(`/journeys/sql/leasson/${atual.id}`)}>Continuar aprendendo <ArrowRight size={18} /></button>}
+              {atual?.available && <button className={styles.primaryCta} type="button" onClick={() => navigate(`/journeys/sql/leasson/${atual.id}`)}>Continuar aprendendo <ArrowRight size={18} /></button>}
             </div>
             <div className={styles.heroBadge}><Trophy size={34} /><strong>{percentual}%</strong><span>da trilha</span></div>
           </section>

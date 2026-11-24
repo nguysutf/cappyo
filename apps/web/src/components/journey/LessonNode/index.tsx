@@ -1,8 +1,8 @@
-import { Check, ChevronRight, Lock, Play, Star } from 'lucide-react'
+import { Check, ChevronRight, Hourglass, Lock, Play, Star } from 'lucide-react'
 
 import styles from './LessonNode.module.scss'
 
-export type LessonStatus = 'completed' | 'current' | 'locked'
+export type LessonStatus = 'completed' | 'current' | 'locked' | 'soon'
 
 interface LessonNodeProps {
   index: number
@@ -16,6 +16,7 @@ const statusLabel = {
   completed: 'concluída',
   current: 'disponível',
   locked: 'bloqueada',
+  soon: 'em breve',
 }
 
 export function LessonNode({ index, title, status, color, onStart }: LessonNodeProps) {
@@ -23,20 +24,23 @@ export function LessonNode({ index, title, status, color, onStart }: LessonNodeP
 
   if(status === 'completed') Icon = Check
   if(status === 'current') Icon = Play
+  if(status === 'soon') Icon = Hourglass
+
+  const bloqueada = status === 'locked' || status === 'soon'
 
   return (
     <li className={styles.item}>
       <button
         type="button"
-        className={`${styles.node} ${status === 'locked' ? styles.locked : ''}`}
+        className={`${styles.node} ${bloqueada ? styles.locked : ''}`}
         onClick={onStart}
-        disabled={status === 'locked'}
+        disabled={bloqueada}
         aria-label={`Lição ${index}: ${title} — ${statusLabel[status]}`}
       >
-        <span className={`${styles.iconWrap} ${styles[color]} ${status === 'locked' ? styles.locked : ''}`}><Icon size={20} strokeWidth={2.6} aria-hidden="true" /></span>
+        <span className={`${styles.iconWrap} ${styles[color]} ${bloqueada ? styles.locked : ''}`}><Icon size={20} strokeWidth={2.6} aria-hidden="true" /></span>
         <span className={styles.lessonCopy}><span className={styles.step}>LIÇÃO {String(index).padStart(2, '0')}</span><span className={styles.title}>{title}</span></span>
         <span className={`${styles.meta} ${status === 'current' ? styles.currentMeta : ''}`}>
-          {status === 'completed' ? <><Check size={13} /> concluída</> : status === 'current' ? 'começar agora' : 'bloqueada'}
+          {status === 'completed' ? <><Check size={13} /> concluída</> : status === 'current' ? 'começar agora' : statusLabel[status]}
         </span>
         <span className={styles.reward}><Star size={12} fill="currentColor" /> 100 XP</span>
         <ChevronRight className={styles.chevron} size={19} aria-hidden="true" />
