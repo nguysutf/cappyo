@@ -7,7 +7,7 @@ import { ResultPanel } from '@/components/leasson/exercises/CodeWriting/componen
 import { SqlEditor } from '@/components/leasson/exercises/CodeWriting/components/sql-editor'
 import { getSampleDatabase, sampleDatabases } from '@/data/sampleDatabases'
 import { createSqlSession, type SqlSession } from '@/services/sqlDatabase'
-import type { ExecutionResult } from '@/types/database'
+import type { DatabaseSchema, ExecutionResult } from '@/types/database'
 
 import styles from './Lab.module.scss'
 
@@ -16,6 +16,8 @@ export function LabPage() {
   const database = getSampleDatabase(databaseId)
   const [code, setCode] = useState(database.examples[0].sql)
   const [result, setResult] = useState<ExecutionResult | null>(null)
+  // Tabelas mostradas à esquerda: acompanham CREATE, ALTER e DROP feitos pelo aluno
+  const [schemaAtual, setSchemaAtual] = useState<DatabaseSchema>(database.schema)
   const [isExecuting, setIsExecuting] = useState(false)
   const [aviso, setAviso] = useState('')
   const sessionRef = useRef<SqlSession | null>(null)
@@ -32,6 +34,7 @@ export function LabPage() {
         return
       }
       sessionRef.current = session
+      setSchemaAtual(session.getSchema())
     })
 
     return () => {
@@ -46,11 +49,13 @@ export function LabPage() {
     setIsExecuting(true)
     setAviso('')
     setResult(sessionRef.current.execute(codeRef.current))
+    setSchemaAtual(sessionRef.current.getSchema())
     setIsExecuting(false)
   }, [])
 
   async function restaurar() {
     await sessionRef.current?.reset()
+    if(sessionRef.current) setSchemaAtual(sessionRef.current.getSchema())
     setResult(null)
     setAviso(`Banco "${database.name}" restaurado com os dados originais.`)
   }
@@ -91,7 +96,7 @@ export function LabPage() {
         <div className={styles.area}>
           <aside className={styles.tabelas}>
             <h2>Tabelas</h2>
-            <DatabasePanel key={databaseId} schema={database.schema} />
+            <DatabasePanel key={databaseId} schema={schemaAtual} />
           </aside>
 
           <section className={styles.trabalho}>
@@ -108,7 +113,7 @@ export function LabPage() {
               onChange={setCode}
               onExecute={executar}
               isExecuting={isExecuting}
-              schema={database.schema}
+              schema={schemaAtual}
             />
 
             <div className={styles.acoes}>

@@ -201,6 +201,35 @@ export async function createSqlSession(schema: DatabaseSchema) {
       database = await createDatabase(schema)
     },
 
+    getSchema(): DatabaseSchema {
+      const [tabelas] = database.exec(
+        'SELECT name FROM sqlite_master WHERE type = \'table\' AND name NOT LIKE \'sqlite_%\' ORDER BY rowid',
+      )
+
+      return {
+        tables: (tabelas?.values ?? []).map(([nome]) => {
+          const original = schema.tables.find((t) => t.name === nome)
+          const [colunas] = database.exec(`PRAGMA table_info(${quoteIdentifier(String(nome))})`)
+
+          return {
+            name: String(nome),
+            description: original?.description ?? 'Tabela criada por você no Laboratório.',
+            columns: (colunas?.values ?? []).map(([, colNome, tipo, notNull, , pk]) => {
+              const coluna = original?.columns.find((c) => c.name === colNome)
+
+              return {
+                name: String(colNome),
+                type: coluna?.type ?? (String(tipo) || 'TEXT'),
+                primaryKey: Number(pk) > 0,
+                nullable: !Number(notNull),
+                foreignKey: coluna?.foreignKey,
+              }
+            }),
+          }
+        }),
+      }
+    },
+
     close() {
       database.close()
     },
