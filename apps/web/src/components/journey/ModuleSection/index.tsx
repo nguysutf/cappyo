@@ -1,4 +1,5 @@
-import { Check, LockKeyhole, PlayCircle, Sparkles } from 'lucide-react'
+import { BookOpen, Check, ChevronRight, LockKeyhole, PlayCircle, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import type { Module } from '@/data/sqlJourney'
 
@@ -31,6 +32,12 @@ export function ModuleSection({ module, number, getStatus, onStartLesson }: Modu
         <div className={styles.progressTrack}><span style={{ width: `${progress}%` }} /></div>
         <div className={styles.progressMeta}><span>{completed}/{module.lessons.length} lições</span><span>{progress === 100 ? <><Check size={14} /> Fase completa</> : <><Sparkles size={14} /> +{module.lessons.length - completed} desafios</>}</span></div>
       </header>
+
+      <Link to={`/teoria/${module.id}`} className={styles.teoria}>
+        <BookOpen size={20} aria-hidden="true" />
+        <span>Ler a teoria antes de praticar</span>
+        <ChevronRight size={18} aria-hidden="true" />
+      </Link>
 
       {module.videoId && (
         <details className={styles.video}>

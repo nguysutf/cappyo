@@ -1,0 +1,187 @@
+.page {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: $spacing-6 $spacing-4 $spacing-8;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.topo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: $color-primary;
+}
+
+.intro {
+  font-size: 1.05rem;
+  color: $color-text-muted;
+}
+
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  margin-top: $spacing-1;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  h2 { font-size: 1.35rem; font-weight: 800; }
+}
+
+.texto {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+// `código` dentro dos textos
+.texto code,
+.aviso code,
+.resumo code,
+.exemplo figcaption code,
+.intro code {
+  font-family: $font-mono;
+  font-size: 0.9em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: $color-primary-light;
+  color: $color-primary-hover;
+}
+
+.exemplo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  figcaption {
+    font-size: 0.85rem;
+    color: $color-text-muted;
+  }
+}
+
+.codigoTopo {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 14px;
+  border-radius: $radius-md $radius-md 0 0;
+  background: #2d2d3a;
+  color: #a5a5c0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: -$spacing-2;
+}
+
+.codigo {
+  margin: 0;
+  padding: $spacing-3 14px;
+  border-radius: 0 0 $radius-md $radius-md;
+  background: #1e1e2b;
+  color: #e6e6f0;
+  font-family: $font-mono;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.aviso {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-md;
+  border-left: 4px solid;
+
+  svg { flex-shrink: 0; margin-top: 2px; }
+  strong { display: block; margin-bottom: 2px; }
+  p { line-height: 1.6; }
+}
+
+.dica {
+  background: $color-info-light;
+  border-color: $color-info;
+  color: #075985;
+}
+
+.atencao {
+  background: $color-warning-light;
+  border-color: $color-warning;
+  color: #92400e;
+}
+
+.resumo {
+  padding: $spacing-4 $spacing-5;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  border: 1px solid $color-border;
+
+  h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: $spacing-2; }
+
+  ul {
+    padding-left: $spacing-5;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    list-style: disc;
+  }
+}
+
+.praticar {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-md;
+  border-bottom: 4px solid $color-primary-hover;
+  background: $color-primary;
+  color: #fff;
+  font-weight: 800;
+}
+
+.navegacao {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-border;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: $color-text-muted;
+  }
+}
