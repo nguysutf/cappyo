@@ -40,17 +40,13 @@
 }
 
 .aula {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: $spacing-4;
   background: $color-surface;
   border: 1px solid $color-border;
   border-radius: $radius-lg;
   padding: $spacing-4;
-
-  @media (min-width: 760px) {
-    grid-template-columns: 1.3fr 1fr;
-    align-items: center;
-  }
 
   iframe {
     display: block;
@@ -58,6 +54,16 @@
     aspect-ratio: 16 / 9;
     border: 0;
     border-radius: $radius-md;
+  }
+}
+
+.topo {
+  display: grid;
+  gap: $spacing-4;
+
+  @media (min-width: 760px) {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: center;
   }
 }
 
@@ -86,4 +92,58 @@
   background: transparent;
   color: $color-primary;
   font-weight: 700;
+}
+
+.aprende {
+  font-size: 0.8rem !important;
+  font-weight: 800;
+  color: $color-text !important;
+}
+
+.topicos {
+  padding-left: $spacing-5;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.88rem;
+  color: $color-text-muted;
+}
+
+.teoria {
+  border-top: 1px solid $color-border;
+  padding-top: $spacing-3;
+
+  summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: $spacing-2 $spacing-4;
+    border: 2px solid $color-primary;
+    border-radius: $radius-md;
+    background: $color-primary-light;
+    color: $color-primary-hover;
+    font-weight: 800;
+    cursor: pointer;
+  }
+}
+
+.teoriaConteudo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  padding-top: $spacing-5;
+  max-width: 760px;
+}
+
+.teoriaIntro {
+  font-size: 1.05rem;
+  color: $color-text-muted;
+}
+
+.abrirPagina {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: $color-primary;
+  text-decoration: underline;
 }

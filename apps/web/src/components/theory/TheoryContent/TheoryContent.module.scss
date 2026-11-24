@@ -1,0 +1,105 @@
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.inlineCode {
+  font-family: $font-mono;
+  font-size: 0.9em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: $color-primary-light;
+  color: $color-primary-hover;
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  h2, h3 { font-size: 1.35rem; font-weight: 800; }
+}
+
+.texto {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.exemplo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  figcaption {
+    font-size: 0.85rem;
+    color: $color-text-muted;
+  }
+}
+
+.codigoTopo {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 14px;
+  border-radius: $radius-md $radius-md 0 0;
+  background: #2d2d3a;
+  color: #a5a5c0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: -$spacing-2;
+}
+
+.codigo {
+  margin: 0;
+  padding: $spacing-3 14px;
+  border-radius: 0 0 $radius-md $radius-md;
+  background: #1e1e2b;
+  color: #e6e6f0;
+  font-family: $font-mono;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.aviso {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-md;
+  border-left: 4px solid;
+
+  svg { flex-shrink: 0; margin-top: 2px; }
+  strong { display: block; margin-bottom: 2px; }
+  p { line-height: 1.6; }
+}
+
+.dica {
+  background: $color-info-light;
+  border-color: $color-info;
+  color: #075985;
+}
+
+.atencao {
+  background: $color-warning-light;
+  border-color: $color-warning;
+  color: #92400e;
+}
+
+.resumo {
+  padding: $spacing-4 $spacing-5;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  border: 1px solid $color-border;
+
+  h2, h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: $spacing-2; }
+
+  ul {
+    padding-left: $spacing-5;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    list-style: disc;
+  }
+}
