@@ -42,7 +42,7 @@ export function LessonNode({ index, title, status, color, onStart }: LessonNodeP
         <span className={`${styles.meta} ${status === 'current' ? styles.currentMeta : ''}`}>
           {status === 'completed' ? <><Check size={13} /> concluída</> : status === 'current' ? 'começar agora' : statusLabel[status]}
         </span>
-        <span className={styles.reward}><Star size={12} fill="currentColor" /> 100 XP</span>
+        <span className={styles.reward}><Star size={12} fill="currentColor" aria-hidden="true" /> 10 XP por acerto</span>
         <ChevronRight className={styles.chevron} size={19} aria-hidden="true" />
       </button>
     </li>

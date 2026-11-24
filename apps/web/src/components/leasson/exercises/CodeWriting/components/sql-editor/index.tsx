@@ -25,6 +25,11 @@ export function SqlEditor({
   disabled = false,
 }: SqlEditorProps) {
   const monacoRef = useRef<Monaco | null>(null)
+  const onExecuteRef = useRef(onExecute)
+
+  useEffect(() => {
+    onExecuteRef.current = onExecute
+  }, [onExecute])
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     monacoRef.current = monaco
@@ -34,7 +39,7 @@ export function SqlEditor({
 
     // Add Ctrl+Enter or Cmd+Enter shortcut to execute query
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
-      onExecute()
+      onExecuteRef.current()
     })
   }
 

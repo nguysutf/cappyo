@@ -23,7 +23,7 @@ export function ModuleSection({ module, number, getStatus, onStartLesson }: Modu
         <div className={styles.bannerTop}>
           <span className={styles.moduleNumber}>{String(number).padStart(2, '0')}</span>
           <div>
-            <p className={styles.kicker}>Fase {number} <span>•</span> {completed === module.lessons.length ? 'concluída' : 'em andamento'}</p>
+            <p className={styles.kicker}>Fase {number} <span>•</span> {completed === module.lessons.length ? 'concluída' : completed > 0 ? 'em andamento' : 'não iniciada'}</p>
             <h2 className={styles.title}>{module.title}</h2>
             <p className={styles.description}>{module.description}</p>
           </div>
